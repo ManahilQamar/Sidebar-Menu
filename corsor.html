@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrected CSS-Only Text Slider</title>
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ef0101;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .bor {
+            background-color: #fff;
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            z-index: 1;
+            clip-path: polygon(46% 0, 4% 4%, 0 45%, 0 0);
+        }
+
+        .bor1 { left: 10rem; top: 8rem; }
+        .bor2 { right: 10rem; top: 8rem; transform: rotate(90deg); animation: moveLeftRight 6s infinite ease-in-out; }
+        .bor3 { left: 10rem; top: 17rem; transform: rotate(270deg); }
+        .bor4 { right: 10rem; top: 17rem; transform: rotate(180deg); animation: moveLeftRight 6s infinite ease-in-out; }
+
+        .text-slider {
+            position: relative;
+            width: 87.5vw;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-slider_item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            text-align: center;
+            color: #fff;
+            z-index: 2;
+            animation: slideAnimation 7s infinite; 
+        }
+
+        .text-slider_item:nth-child(1) { animation-delay: 0s; }
+        .text-slider_item:nth-child(2) { animation-delay: 6s; }
+        .text-slider_item:nth-child(3) { animation-delay: 12s; }
+
+        @keyframes slideAnimation {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            25% { opacity: 1; }
+            35% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        @keyframes moveLeftRight {
+            0%, 25%, 100% { right: 16rem; }
+            50%, 75% { right: calc(88vw - 102px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bor bor1"></div>
+    <div class="bor bor2"></div>
+    <div class="bor bor3"></div>
+    <div class="bor bor4"></div>
+
+    <div class="text-slider">
+        <div class="text-slider_item">
+            <h2>JOIN THE BATTLE<br>MASTER THE ART OF COMBAT<br>BECOME A LEGEND</h2>
+        </div>
+        <div class="text-slider_item">
+            <h2>CONQUER YOUR FEARS<br>EMBRACE THE CHALLENGE<br>UNLEASH YOUR POTENTIAL</h2>
+        </div>
+        <div class="text-slider_item">
+            <h2>RISE ABOVE THE REST<br>PURSUE PERFECTION<br>ACHIEVE GREATNESS</h2>
+        </div>
+    </div>
+</body>
+</html>

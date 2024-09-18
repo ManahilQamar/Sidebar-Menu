@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <title>Scroll Line Effect</title>
+  <style>
+    * {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      background: #222;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+
+    .landingPage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+    }
+
+    .landingPage img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .scroll-reveal {
+      position: relative;
+      height: 150vh; /* Adjust height as needed */
+      background-color: #000;
+      padding-left: 40px;
+      overflow: hidden;
+    }
+
+    .scroll-line-top,
+    .scroll-line-bottom {
+      position: absolute;
+      left: 25px;
+      width: 4px;
+      height: 0; /* Start height at 0 */
+      background: linear-gradient(to bottom, gray, aqua);
+      z-index: 10;
+      transition: height 0.5s ease; /* Smooth transition */
+    }
+
+    .scroll-line-top {
+      top: 0;
+    }
+
+    .scroll-line-bottom {
+      bottom: 0;
+      /* Flip the gradient for bottom line */
+      background: linear-gradient(to top, gray, aqua);
+    }
+
+    .lock {
+      position: absolute;
+      left: 15px; /* Initial position */
+      top: 50%; /* Center vertically */
+      transform: translateY(-50%); /* Adjust vertical centering */
+      z-index: 20; /* Ensure it is above the lines */
+      color: #fff; /* Lock color */
+      font-size: 1.5rem; /* Adjust size as needed */
+      text-shadow: 
+        0 0 25px aqua,
+        0 0 30px aqua;
+      transition: left 0.5s ease; /* Smooth transition for position change */
+    }
+
+    .scroll-reveal.scrolled .lock {
+      left: calc(100% - 98.4%); /* Final position (adjust as needed) */
+    }
+
+    .content {
+      height: 200vh;
+      padding: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="landingPage">
+    <img src="landingPage.jpg" alt="Landing Page Image">
+  </section>
+
+  <section class="scroll-reveal" id="scroll-section">
+    <!-- Top and bottom lines -->
+    <div class="scroll-line-top" id="scroll-line-top"></div>
+    <div class="lock"><i class='bx bx-lock-alt'></i></div>
+    <div class="scroll-line-bottom" id="scroll-line-bottom"></div>
+  </section>
+
+  <!-- Content to enable scrolling -->
+  <div class="content">
+    <p>Scroll down to see the effect.</p>
+  </div>
+
+  <section style="height: 100vh; background: forestgreen;"></section>
+
+  <script>
+    const scrollLineTop = document.getElementById('scroll-line-top');
+    const scrollLineBottom = document.getElementById('scroll-line-bottom');
+    const scrollSection = document.getElementById('scroll-section');
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          scrollLineTop.style.height = '40%'; 
+          scrollLineBottom.style.height = '40%'; 
+          scrollSection.classList.add('scrolled'); // Add class when in view
+        } else {
+          scrollLineTop.style.height = '0';
+          scrollLineBottom.style.height = '0';
+          scrollSection.classList.remove('scrolled'); // Remove class when out of view
+        }
+      });
+    }, {
+      threshold: [0.2] 
+    });
+
+    observer.observe(scrollSection);
+  </script>
+</body>
+
+</html>
